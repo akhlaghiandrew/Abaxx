@@ -1,0 +1,5 @@
+import dask
+import dask.dataframe as dd
+df=dd.read_csv("rus-identifiers-1M.csv")
+df.sample(frac=.0001)
+df_1.to_csv("sample1.csv",index=False,single_file=True)
