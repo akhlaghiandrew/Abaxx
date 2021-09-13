@@ -1,0 +1,4 @@
+collist=['id','meta']
+df_1=pd.read_csv("pep_entities_7.tsv",sep=';',names=collist,header=None)
+df_1['seed']=[x.split("?")[0] for x in df_1['meta']]
+len(df_1.seed.unique())
