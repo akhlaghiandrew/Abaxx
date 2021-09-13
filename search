@@ -1,0 +1,8 @@
+import pandas as pd
+import json
+
+df_1=pd.read_csv("sample1.csv")
+queries=[json.dumps({'params':{'q':f'(identifier.value:{row.Identifier} AND identifier.type:{row.type})','advanced':'True'},"limit":1}) for _, row in df_1.iterrows()]
+
+with open("search_queries.jl","w") as outfile:
+  outfile.write("\n".join(queries))
