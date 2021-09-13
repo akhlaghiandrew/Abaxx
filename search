@@ -9,4 +9,4 @@ with open("search_queries.jl","w") as outfile:
   outfile.write("\n".join(queries))
 
 ### this doesn't really work at the moment 
-os.subprocess.run['consulting', 'api', 'search', 'search_queries.jl', '$PWD' 'https://api.sayari.com']
+subprocess.call(['consulting', 'api', 'search', 'search_queries.jl', '$PWD', 'https://api.sayari.com'])
