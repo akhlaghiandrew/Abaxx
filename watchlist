@@ -1,1 +1,30 @@
+###jq and entities
+cat search_output_sample1.jl |jq '"\(.data[].id);\(.data[].label)"'|tr -d '"' > ids_samples1.tsv
 
+
+import pandas as pd 
+import json
+
+collist=["id","name"]
+df_1=pd.read_csv("ids_samples1.tsv",sep=';',names=collist,header=None)
+queries=[json.dumps({"id":row.id}) for _, row in df_1.iterrows()]
+with open("entity_queries.jl","w") as outfile:
+  outfile.write("\n".join(queries))
+###jq
+api entity entity_queries.jl $PWD https://api.sayari.com
+
+###for traversals 
+df_1=pd.read_csv("ids_samples1.tsv",sep=';',names=collist,header=None)
+import pandas as pd
+import json
+collist=["id","name"]
+df_1=pd.read_csv("ids_samples1.tsv",sep=';',names=collist,header=None)
+
+###do this for each number of hops 1-7
+
+queries=[json.dumps({"id":row.id,"params":{"max_depth":1}}) for _, row in df_1.iterrows()]
+with open("trav_1_queries.jl","w") as outfile:
+  outfile.write("\n".join(queries))
+
+###consulting api 1-7 
+consulting api traversal --shortcut watchlist trav_2_queries.jl $PWD https://api.sayari.com
